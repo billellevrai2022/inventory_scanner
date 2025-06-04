@@ -1,37 +1,141 @@
 # make_labels.py
-import pandas as pd, os
+#!/usr/bin/env python3
+"""
+Generate 1.5 in × 1 in Code-128 product labels
+----------------------------------------------
+
+* Reads inventory.csv  (barcode,name,variant,category,stock,…)
+* Renders each barcode to PNG
+* Lays them out on:
+    • Letter sheet 5 × 10  (default)           OR
+    • Roll-label page 1.5" × 1"
+
+Requires: python-barcode[ pillow ], reportlab
+"""
+
+import os, math
+from pathlib import Path
+
+import pandas as pd
 from barcode import Code128
 from barcode.writer import ImageWriter
 from reportlab.pdfgen import canvas
-from reportlab.lib.units import mm
+from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 
-df = pd.read_csv("inventory.csv")          # must include 'barcode','name','variant'
+################################################################################
+# CONFIG – change here only
+################################################################################
+CSV_PATH     = Path("inventory.csv")
+OUT_DIR      = Path("out")
+PNG_DIR      = OUT_DIR / "png"
 
-# 1. render each barcode to PNG ------------------------------------------------
-os.makedirs("out/png", exist_ok=True)
-for _, row in df.iterrows():
-    code = str(row["barcode"])
-    Code128(code, writer=ImageWriter()).save(f"out/png/{code}")
+LABEL_W      = 1.5 * inch          # 1.5 inches
+LABEL_H      = 1.0 * inch          # 1.0 inch
 
-# 2. lay them onto Avery 5160 (30-up) sheet ------------------------------------
-c = canvas.Canvas("out/labels.pdf", pagesize=letter)
-x0, y0 = 5 * mm, 8 * mm              # top-left margin of first label
-w, h   = 66 * mm, 24 * mm            # label size
-cols, rows = 3, 10
+SHEET_MODE   = True                # True → Avery-style sheet, False → roll
 
-i = 0
-for _, row in df.iterrows():
-    col = i % cols
-    row_idx = i // cols
-    if row_idx == rows:              # new page
-        c.showPage(); row_idx = 0
-    x = x0 + col * w
-    y = letter[1] - y0 - (row_idx + 1) * h
-    c.drawImage(f"out/png/{row['barcode']}.png", x + 2*mm, y + 6*mm, width=40*mm, height=12*mm)
-    c.setFont("Helvetica", 6)
-    c.drawString(x + 2*mm, y + 2*mm, f"{row['name']} – {row['variant']}")
-    i += 1
+# --- Sheet layout (Letter) ----------------------------------------------------
+PAGE_SIZE    = letter              # 8.5 × 11 in
+COLS         = 5
+ROWS         = 10
+MARGIN_L     = 0.25 * inch         # left/right margin
+MARGIN_T     = 0.50 * inch         # top margin
+GAP_X        = 0.125 * inch        # space between columns
+GAP_Y        = 0.05  * inch        # space between rows (adjust to fit)
 
-c.save()
-print("PDF ready: out/labels.pdf")
+# --- Barcode inside the label -------------------------------------------------
+CODE_W       = 1.3 * inch          # barcode graphic width
+CODE_H       = 0.45 * inch
+TEXT_OFFSET  = 0.08 * inch         # space between barcode & human text
+FONT_SIZE    = 5.5
+################################################################################
+
+
+def render_pngs(df: pd.DataFrame):
+    PNG_DIR.mkdir(parents=True, exist_ok=True)
+    for code in df["barcode"].astype(str):
+        out = PNG_DIR / f"{code}.png"
+        if not out.exists():
+            Code128(code, writer=ImageWriter()).save(out.with_suffix(""))
+
+
+def make_sheet(df: pd.DataFrame):
+    c = canvas.Canvas(str(OUT_DIR / "labels_sheet.pdf"), pagesize=PAGE_SIZE)
+    page_w, page_h = PAGE_SIZE
+    i = 0
+
+    for _, row in df.iterrows():
+        col = i % COLS
+        row_idx = (i // COLS) % ROWS
+        page_idx = i // (COLS * ROWS)
+
+        # new page?
+        if i and i % (COLS * ROWS) == 0:
+            c.showPage()
+
+        # top-left corner of current label
+        x = MARGIN_L + col * (LABEL_W + GAP_X)
+        y = page_h - MARGIN_T - LABEL_H - row_idx * (LABEL_H + GAP_Y)
+
+        code = str(row["barcode"])
+        img  = PNG_DIR / f"{code}.png"
+
+        # draw barcode
+        c.drawImage(str(img), x + (LABEL_W - CODE_W) / 2,
+                    y + (LABEL_H - CODE_H - TEXT_OFFSET) / 2 + TEXT_OFFSET,
+                    width=CODE_W, height=CODE_H)
+
+        # draw human-readable line
+        text = f"{row['name']} – {row['variant']}"
+        c.setFont("Helvetica", FONT_SIZE)
+        c.drawCentredString(x + LABEL_W / 2,
+                            y + (LABEL_H - CODE_H) / 2 - TEXT_OFFSET,
+                            text[:30])              # trim long names
+
+        i += 1
+
+    c.save()
+    print(f"Saved → {OUT_DIR / 'labels_sheet.pdf'}")
+
+
+def make_roll(df: pd.DataFrame):
+    from reportlab.lib.pagesizes import landscape
+    page_size = (LABEL_W, LABEL_H)
+    c = canvas.Canvas(str(OUT_DIR / "labels_roll.pdf"), pagesize=page_size)
+
+    for _, row in df.iterrows():
+        code = str(row["barcode"])
+        img  = PNG_DIR / f"{code}.png"
+
+        # center graphic
+        c.drawImage(str(img),
+                    (LABEL_W - CODE_W) / 2,
+                    (LABEL_H - CODE_H - TEXT_OFFSET) / 2 + TEXT_OFFSET,
+                    width=CODE_W, height=CODE_H)
+
+        c.setFont("Helvetica", FONT_SIZE)
+        c.drawCentredString(LABEL_W / 2,
+                            (LABEL_H - CODE_H) / 2 - TEXT_OFFSET,
+                            f"{row['name']} – {row['variant']}"[:30])
+
+        c.showPage()
+
+    c.save()
+    print(f"Saved → {OUT_DIR / 'labels_roll.pdf'}")
+
+
+def main():
+    OUT_DIR.mkdir(exist_ok=True)
+    df = pd.read_csv(CSV_PATH, dtype=str)
+    render_pngs(df)
+
+    if SHEET_MODE:
+        make_sheet(df)
+    else:
+        make_roll(df)
+
+
+if __name__ == "__main__":
+    main()
+
