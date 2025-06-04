@@ -54,7 +54,10 @@ FONT_SIZE    = 5.5
 
 def render_pngs(df: pd.DataFrame):
     PNG_DIR.mkdir(parents=True, exist_ok=True)
-    for code in df["barcode"].astype(str):
+    df.columns = df.columns.str.strip()
+    if "barcode" in df.columns:
+        df["barcode"] = df["barcode"].astype(str)
+    for code in df["barcode"]:
         out = PNG_DIR / f"{code}.png"
         if not out.exists():
             Code128(code, writer=ImageWriter()).save(out.with_suffix(""))
