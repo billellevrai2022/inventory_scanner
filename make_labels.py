@@ -128,6 +128,27 @@ def make_roll(df: pd.DataFrame):
     print(f"Saved → {OUT_DIR / 'labels_roll.pdf'}")
 
 
+def generate_labels_pdf(
+    csv_path: Path = CSV_PATH,
+    out_dir: Path = OUT_DIR,
+    sheet_mode: bool = SHEET_MODE,
+) -> Path:
+    """Generate labels PDF from ``csv_path``.
+
+    Returns the path to the created PDF file.
+    """
+    out_dir.mkdir(exist_ok=True)
+    df = pd.read_csv(csv_path, dtype=str)
+    render_pngs(df)
+
+    if sheet_mode:
+        make_sheet(df)
+        return out_dir / "labels_sheet.pdf"
+    else:
+        make_roll(df)
+        return out_dir / "labels_roll.pdf"
+
+
 def main():
     OUT_DIR.mkdir(exist_ok=True)
     df = pd.read_csv(CSV_PATH, dtype=str)

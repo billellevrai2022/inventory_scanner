@@ -2,6 +2,9 @@
 import streamlit as st
 import pandas as pd
 from pathlib import Path
+import base64
+
+import make_labels
 
 st.set_page_config(page_title="Inventory Scanner", page_icon="📦", layout="wide")
 
@@ -60,3 +63,19 @@ with col2:
 by_cat = df.groupby("category")["stock"].sum()
 st.subheader("Stock distribution by category")
 st.bar_chart(by_cat)
+
+# --- Label generator ----------------------------------------------------
+st.header("Generate Labels")
+if st.button("Create Labels PDF"):
+    pdf_path = make_labels.generate_labels_pdf(DATA_PATH)
+    with open(pdf_path, "rb") as f:
+        pdf_bytes = f.read()
+    b64 = base64.b64encode(pdf_bytes).decode()
+    pdf_embed = f"<iframe id='pdf_frame' src='data:application/pdf;base64,{b64}' width='700' height='500'></iframe>"
+    print_button = """
+        <button onclick="document.getElementById('pdf_frame').contentWindow.print();">
+            Print labels
+        </button>
+    """
+    st.markdown(pdf_embed + print_button, unsafe_allow_html=True)
+
