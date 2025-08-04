@@ -1,78 +1,26 @@
-barcode,name,variant,category,price,stock
-000000000001, Tricho Jordan Shatter  , 1 g                         , Concentrates    ,  15.00,0
-000000000002, Blueberry Diesel       , 1 g                         , Concentrates    ,  25.00,0
-000000000003, Alcapulco Gold         , 1/8                         , Flower          ,  40.00,0
-000000000004, Tricho Jordan Shatter  , 1 gram                      , Concentrates    ,  35.00,0
-000000000005, Blueberry Diesel       , 1 gram                      , Concentrates    ,  10.00,0
-000000000006, Blueberry Diesel       , 3 grams                     , Concentrates    ,  25.00,0
-000000000007, Super Sour Diesel      , 1 gram                      , Concentrates    ,  10.00,0
-000000000008, Super Sour Diesel      , 3 grams                     , Concentrates    ,  25.00,0
-000000000009, Granddaddy Purp Crumble, 1 gram                      , Concentrates    ,  10.00,0
-000000000010, Granddaddy Purp Crumble, 3 grams                     , Concentrates    ,  25.00,0
-000000000011, Cherry Pie Crumble     , 1 gram                      , Concentrates    ,  10.00,0
-000000000012, Cherry Pie Crumble     , 3 grams                     , Concentrates    ,  30.00,0
-000000000013, Alcapulco Gold         , 1/8                         , Flower          ,  28.00,0
-000000000014, Alcapulco Gold         , 1/4                         , Flower          ,  48.00,0
-000000000015, Alcapulco Gold         , 1/2                         , Flower          ,  90.00,0
-000000000016, Alcapulco Gold         , ounce                       , Flower          , 180.00,0
-000000000017, Quattro Kush           , 1/8                         , Flower          ,  25.00,0
-000000000018, Quattro Kush           , 1/4                         , Flower          ,  45.00,0
-000000000019, Quattro Kush           , 1/2                         , Flower          ,  85.00,0
-000000000020, Quattro Kush           , ounce                       , Flower          , 160.00,0
-000000000021, Gooey Butter Cake      , 1/8                         , Flower          ,  20.00,0
-000000000022, Gooey Butter Cake      , 1/4                         , Flower          ,  40.00,0
-000000000023, Gooey Butter Cake      , 1/2                         , Flower          ,  80.00,0
-000000000024, Gooey Butter Cake      , ounce                       , Flower          , 145.00,0
-000000000025, Gucci OG               , 1/8                         , Flower          ,  20.00,0
-000000000026, Gucci OG               , 1/4                         , Flower          ,  40.00,0
-000000000027, Gucci OG               , 1/2                         , Flower          ,  80.00,0
-000000000028, Gucci OG               , ounce                       , Flower          , 145.00,0
-000000000029, Deleted Scene          , 1/8                         , Flower          ,  18.00,0
-000000000030, Deleted Scene          , 1/4                         , Flower          ,  32.50,0
-000000000031, Deleted Scene          , 1/2                         , Flower          ,  65.00,0
-000000000032, Deleted Scene          , ounce                       , Flower          , 125.00,0
-000000000033, Apples & Bananas       , 1/8                         , Flower          ,  18.00,0
-000000000034, Apples & Bananas       , 1/4                         , Flower          ,  32.50,0
-000000000035, Apples & Bananas       , 1/2                         , Flower          ,  65.00,0
-000000000036, Apples & Bananas       , ounce                       , Flower          , 125.00,0
-000000000037, Flap Jacks             , 1/8                         , Flower          ,  20.00,0
-000000000038, Flap Jacks             , 1/4                         , Flower          ,  40.00,0
-000000000039, Flap Jacks             , 1/2                         , Flower          ,  80.00,0
-000000000040, Flap Jacks             , ounce                       , Flower          , 145.00,0
-000000000041, Blueberry Muffin       , 1/8                         , Flower          ,  18.00,0
-000000000042, Blueberry Muffin       , 1/4                         , Flower          ,  32.50,0
-000000000043, Blueberry Muffin       , 1/2                         , Flower          ,  65.00,0
-000000000044, Blueberry Muffin       , ounce                       , Flower          , 125.00,0
-000000000045, Blueberry Pancakes     , 1/8                         , Flower          ,  18.00,0
-000000000046, Blueberry Pancakes     , 1/4                         , Flower          ,  32.50,0
-000000000047, Blueberry Pancakes     , 1/2                         , Flower          ,  65.00,0
-000000000048, Blueberry Pancakes     , ounce                       , Flower          , 125.00,0
-000000000049, Strawberry Cough       , 1/8                         , Flower          ,  18.00,0
-000000000050, Strawberry Cough       , 1/4                         , Flower          ,  32.50,0
-000000000051, Strawberry Cough       , 1/2                         , Flower          ,  65.00,0
-000000000052, Strawberry Cough       , ounce                       , Flower          , 125.00,0
-000000000053, Blueberry Muffin       , 1 gram                      , Diamonds & Sauce,  15.00,0
-000000000054, Blueberry Muffin       , 3 grams                     , Diamonds & Sauce,  40.00,0
-000000000055, Amnesia Haze           , 1 gram                      , Diamonds & Sauce,  15.00,0
-000000000056, Amnesia Haze           , 3 grams                     , Diamonds & Sauce,  40.00,0
-000000000057, Flower Preroll         , Blueberry Muffin            , Other           ,   5.00,0
-000000000058, Flower Preroll         , Chimera                     , Other           ,   5.00,0
-000000000059, Infused Preroll        , Candy Runtz                 , Other           ,  10.00,0
-000000000060, 1 Gram Cart            , Blue Walker (Sativa)        , Vapes & Carts   ,  24.00,0
-000000000061, 1 Gram Cart            , Bomb Pop (Indica)           , Vapes & Carts   ,  16.00,0
-000000000062, 1 Gram Cart            , Cranberry Haze (Sativa)     , Vapes & Carts   ,  24.00,0
-000000000063, 1 Gram Cart            , Cherry Cookies (Indica)     , Vapes & Carts   ,  16.00,0
-000000000064, 1 Gram Cart            , Cherry Pie (Sativa)         , Vapes & Carts   ,  16.00,0
-000000000065, 1 Gram Cart            , Mango Tango (Indica)        , Vapes & Carts   ,  24.00,0
-000000000066, 1 Gram Cart            , Tropical Cherries (Sativa)  , Vapes & Carts   ,  16.00,0
-000000000067, 1 Gram Cart            , White Fire Zkittles (Hybrid), Vapes & Carts   ,  16.00,0
-000000000068, 1 Gram Disposable      , Sour Diesel Live Resin      , Vapes & Carts   ,  35.00,0
-000000000069, 1 Gram Disposable      , Sour Pebbles (Sativa)       , Vapes & Carts   ,  30.00,0
-000000000070, 1 Gram Disposable      , Cherry Cookies (Indica)     , Vapes & Carts   ,  30.00,0
-000000000071, 1 Gram Disposable      , Tropical Cherries (Sativa)  , Vapes & Carts   ,  30.00,0
-000000000072, 1 Gram Disposable      , Watermelon OG (Indica)      , Vapes & Carts   ,  30.00,0
-000000000073, 2 Gram Vape            , Runtz                       , Vapes & Carts   ,  30.00,0
-000000000074, 2 Gram Vape            , Chemdawg                    , Vapes & Carts   ,  30.00,0
-000000000075, 2 Gram Vape            , Cherry Cookies              , Vapes & Carts   ,  30.00,0
-000000000076, 2 Gram Vape            , Green Crack                 , Vapes & Carts   ,  30.00,0
-000000000077, 2 Gram Vape            , Blueberry                   , Vapes & Carts   ,  30.00,0
+barcode,stock,disponible
+T-S-B,10,9
+T-M-B,10,9
+T-L-B,10,9
+T-XL-B,10,9
+T-S-N,10,9
+T-N-M,10,10
+T-L-N,10,10
+T-XL-N,10,10
+Mug,10,10
+Tapisou,20,20
+BB-NV,3,3
+BB-6M,5,5
+BOB-B,1,1
+BOB-BLU,1,1
+BOB-ROZ,1,1
+BOB-MARON,1,1
+TOTBAG-BG,8,8
+O.S-S-N,0,0
+O.S-M-N,0,0
+O.S-L-N,0,0
+O.S-XL-N,0,0
+O.S-S-B,0,0
+O.S-M-B,0,0
+O.S-L-B,0,0
+O.S-XL-B,0,0
